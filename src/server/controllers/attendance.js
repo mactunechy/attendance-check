@@ -34,8 +34,8 @@ lib.getAttendance = async (req, res) => {
   if (!id) return res.status (400).json ({error: 'Missing Required fields'});
 
   let attendance = await Attendance.findById (id)
-  .populate('employee')
-  .exec()
+  	.populate('employee')
+  	.exec()
     .catch (() => console.log ('failed to get Attendance'));
 
   if (!attendance) return res.sendStatus (404);
@@ -46,6 +46,8 @@ lib.getAttendance = async (req, res) => {
 lib.getAttendances = async (req, res) => {
   //Required data
   let attendances = await Attendance.find ({})
+  	.populate('employee')
+  	.exec()
     .catch (() => console.log ('failed to get attendance'));
   if (!attendances) return res.sendStatus (404);
 
