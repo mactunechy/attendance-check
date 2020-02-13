@@ -36,60 +36,8 @@ const userSchema = new mongoose.Schema ({
   },
 });
 
-userSchema.methods.authUser = async function({email, password}) {
-  let inputPassword = await hash (password);
-  console.log (inputPassword);
-  console.log (this.password);
-  if (this.password !== inputPassword) return false;
-  if (this.email !== email) return false;
-  let token = await jwt.sign (
-    {
-      id: this._id,
-      isAdmin: this.isAdmin,
-      firstName: this.firstName,
-      clearance: this.clearance,
-      accessToken: this.accessToken,
-    },
-    config.hashingSecret,
-    {expiresIn: '1h'}
-  );
-  return {token};
-};
-
-userSchema.methods.renewToken = async function () {
-  let token = jwt.sign (
-    {
-      id: this._id,
-      isAdmin: this.isAdmin,
-      firstName: this.firstName,
-      clearance: this.clearance,
-      accessToken: this.accessToken,
-    },
-    config.hashingSecret,
-    {expiresIn: '1h'}
-  );
-  return {token};
-};
-
-userSchema.methods.setProfileImage = async function (file) {
-  return new Promise ((resolve, reject) => {
-    let a = file.originalname.split ('.');
-    let fileName = `${this.firstName}-${this.firstLastName}-profile.${a[a.length - 1]}`;
-    uploadOnline ('profiles', fileName, file.buffer)
-      .then (location => {
-        this.profileImage = location;
-        this.save ();
-        return resolve ();
-      })
-      .catch (err => {
-        console.log (err);
-        return reject ();
-      });
-  });
-};
-
 //User Model
-const User = mongoose.model ('User', userSchema);
+const Employee = mongoose.model ('Employee', userSchema);
 
 //Exporting the Model
-module.exports = User;
+module.exports = Employee;
