@@ -5,7 +5,6 @@
 //Dependencies
 const Attendance = require ('../models/Attendance');
 const validator = require ('../models/Attendance/validator');
-const Topic = require ('../models/Topic');
 //container of the module
 const lib = {};
 
