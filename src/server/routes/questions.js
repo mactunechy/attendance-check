@@ -6,7 +6,7 @@
 //Dependencies
 const controller = require ('../controllers/attendance');
 const express = require ('express');
-const auth = require ('../middleware/auth');
+//const auth = require ('../middleware/auth');
 const router = express.Router ();
 const {upload} = require ('../lib/fileUploader');
 
