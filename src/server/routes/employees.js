@@ -6,29 +6,22 @@
 //Dependencies
 const controller = require ('../controllers/employees.js');
 const express = require ('express');
-const validateEmail = require ('../middleware/validateEmail');
-const auth = require ('../middleware/auth');
+//const auth = require ('../middleware/auth');
 const router = express.Router ();
-const {upload} = require ('../lib/fileUploader');
 
 router.post (
-  '/accounts/create',
-  upload.single ('file'),
-  validateEmail,
-  controller.createUser
+  '/employees/create',
+  controller.createEmployee
 );
-router.post ('/accounts/create/confirm', controller.confirmAccountCreation);
 router.put (
-  '/accounts/update',
-  auth (true, 'green'),
-  upload.single ('file'),
-  controller.updateUser
+  '/employees/update',
+  controller.updateEmployee
 );
-router.delete ('/accounts/delete/:id', controller.deleteUser);
-router.get ('/accounts/me/:id', auth (true, 'green'), controller.getEmployee);
-router.get ('/accounts/all', auth (true, 'green'), controller.getEmployees); //@TODO add auth
-router.post ('/accounts/login', controller.loginUser);
-router.put ('/accounts/renew/token', auth, controller.renewToken);
+router.delete ('/employees/delete/:id', controller.deleteUser);
+router.get ('/employees/me/:id',controller.getEmployee);
+router.get ('/employees/all',  controller.getEmployees); //@TODO add auth
+//router.post ('/employees/login', controller.loginUser);
+//router.put ('/employees/renew/token', auth, controller.renewToken);
 
 //Exporting the router
 module.exports = router;
