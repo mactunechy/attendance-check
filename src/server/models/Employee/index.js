@@ -30,34 +30,9 @@ const userSchema = new mongoose.Schema ({
     required: true,
     unique: true,
   },
-  profileImage: {
-    type: String,
-  },
-  phone: {
-    type: String,
-    minlength: 10,
-    maxlength: 15,
-    required: true,
-  },
-  password: {
-    type: String,
-    maxlength: 1000,
-  },
   isAdmin: {
     type: Boolean,
     defaulte : false
-  },
-  isActive: {
-    type: Boolean,
-    default: false,
-  },
-  clearance: {
-    type: String,
-    default: 'green',
-  },
-  accessToken: {
-    type: mongoose.SchemaTypes.ObjectId,
-    ref: 'Token',
   },
 });
 
