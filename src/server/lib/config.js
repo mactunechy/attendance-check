@@ -22,7 +22,7 @@ environments.development = {
 		origin : 'http://localhost:7000/'
 	},
 	mongoDB:{
-		uri:'mongodb://localhost/appName'
+		uri:"mongodb+srv://mactunechy:dellan20@firstcluster-ueynt.mongodb.net/test?retryWrites=true&w=majority"
 	},
 	company : {
 		infoEmail : 'info@appName.com',

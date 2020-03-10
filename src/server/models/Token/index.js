@@ -1,56 +1,38 @@
 /*
-* Exam Model
-*/
+ * Exam Model
+ */
 
 //Dependencies
-const mongoose = require ('mongoose');
-const { pricing } = require('../../lib/config')
+const mongoose = require("mongoose");
+const { pricing } = require("../../lib/config");
 //Users Schema
-const schema = new mongoose.Schema ({
-  pricing: {
-    type: String,
-    default :'free'
+const schema = new mongoose.Schema({
+  createdAt: {
+    type: Date,
+    default: Date.now
   },
-  exams : [{
-    type: mongoose.SchemaTypes.ObjectId,
-    ref:'Exam'
-  }],
-  expiresAt :{
-      type : Date,
+  expiredAt: {
+    type: Date
+  },
+  isValid: {
+    type: Boolean,
+    default: true
   }
 });
 
-
-
-
-
-schema.methods.verify =  function () {
-    let response = {}
-    if(this.pricing == 'enteprise'){
-        response.isMaxExams = false
-    }else{
-        let { maxExams } = pricing[this.pricing]
-        response.isMaxExams = this.exams.length >= maxExams ? true : false
-    }
-    if(this.pricing == 'free'){
-        response.expired = false
-    }else{
-        response.expired = this.expiresAt < Date.now() ? true : false
-    }
-    
-    return response
+//Token can only be checked for validity once
+schema.methods.verify = function() {
+  const isValid = this.isValid;
+  if (this.isValid) {
+    this.isValid = false;
+    this.expiredAt = Date.now();
+    this.save();
+  }
+  return isValid;
 };
 
-schema.methods.addExam = function(examId){
-    let { exams } = this;
-    exams.push(examId)
-    this.exams = exams
-    return this.save()
-}
-
-
 //User Model
-const Token = mongoose.model ('Token', schema);
+const Token = mongoose.model("Token", schema);
 
 //Exporting the Model
 module.exports = Token;

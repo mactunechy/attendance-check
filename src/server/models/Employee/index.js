@@ -1,43 +1,37 @@
 /*
-* User model
-*/
+ * User model
+ */
 
 //Dependencies
-const mongoose = require ('mongoose');
-
+const mongoose = require("mongoose");
 
 //Users Schema
-const userSchema = new mongoose.Schema ({
+const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
     minlength: 1,
     maxlength: 255,
-    required: true,
+    required: true
   },
   lastName: {
     type: String,
     minlength: 1,
-    maxlength: 255,
-    required: true,
+    maxlength: 255
   },
   department: {
-    type: String,
-    required: true,
-    unique: true,
+    type: String
   },
-    company: {
-    type: String,
-    required: true,
-    unique: true,
+  company: {
+    type: String
   },
   isAdmin: {
     type: Boolean,
-    defaulte : false
-  },
+    default: false
+  }
 });
 
 //User Model
-const Employee = mongoose.model ('Employee', userSchema);
+const Employee = mongoose.model("Employee", userSchema);
 
 //Exporting the Model
 module.exports = Employee;

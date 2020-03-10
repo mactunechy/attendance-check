@@ -1,11 +1,11 @@
-const Joi = require('joi')
+const Joi = require("joi");
 
 const schema = {
-    pricing: Joi.string().min(3).max(30).required(),
-    expiresAt: Joi.number().required()
-}
+  createdAt: Joi.string(),
+  expiredAt: Joi.string(),
+  isValid: Joi.boolean()
+};
 
-
-module.exports = function(user){
-    return Joi.validate(user,schema)
-}
+module.exports = function(token) {
+  return Joi.validate(token, schema);
+};

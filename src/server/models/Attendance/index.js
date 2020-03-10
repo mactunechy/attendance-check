@@ -1,36 +1,32 @@
 /*
-* Attendance Model
-*/
+ * Attendance Model
+ */
 
 //Dependencies
-const mongoose = require ('mongoose');
+const mongoose = require("mongoose");
 //Users Schema
-const schema = new mongoose.Schema ({
+const schema = new mongoose.Schema({
   date: {
     type: Date,
     minlength: 1,
-    required: true,
+    default: Date.now
   },
   employee: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Employee',
-    required: true,
+    ref: "Employee",
+    required: true
   },
-  excuse: {
+  reason: {
     type: String,
-    minlength: 1,
+    minlength: 1
   },
   attended: {
     type: Boolean,
-    required: true,
-  },
+  }
 });
 
-
-
-
-//Employee Model
-const Attendance = mongoose.model ('Attendance', schema);
+//Attendance Model
+const Attendance = mongoose.model("Attendance", schema);
 
 //Exporting the Model
-module.exports = Employee;
+module.exports = Attendance;
