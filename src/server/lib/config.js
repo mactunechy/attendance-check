@@ -22,7 +22,7 @@ environments.development = {
 		origin : 'http://localhost:7000/'
 	},
 	mongoDB:{
-		uri:"mongodb+srv://mactunechy:dellan20@firstcluster-ueynt.mongodb.net/test?retryWrites=true&w=majority"
+		uri:"mongodb://breeze:1f1femsk@cloudzeus.eu:27018/rentals"
 	},
 	company : {
 		infoEmail : 'info@appName.com',
@@ -61,17 +61,17 @@ environments.development = {
 environments.production = {
 	envName:'production',
 	port:7000,
-	origin:'https://backend.breezerentals.gr',
+	origin:'https://presence.kolleris.com',
 	globals : {
 		appName : 'AppName',
 		origin : ''
 	},
 	hashingSecret:'prodSecret',
 	mongoDB:{
-		uri:`mongodb+srv://mactunechy:9eBJ4HyWh9L30ygK@firstcluster-ueynt.mongodb.net/provisional?retryWrites=true&w=majority`
+		uri:`mongodb://breeze:1f1femsk@cloudzeus.eu:27018/register`
 	},
 	company : {
-		infoEmail : ''
+		infoEmail : 'info@kolleris.com'
 	},	
 	thirdPartyEndpoints : {
 		

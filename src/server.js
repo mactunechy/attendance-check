@@ -25,7 +25,7 @@ const appBoostrap = () => {
   logger ();
 
   mongoose
-    .connect (config.mongoDB.uri, {useNewUrlParser: true})
+    .connect (config.mongoDB.uri, {useNewUrlParser: true,useUnifiedTopology: true})
     .then ((err, db) => {
       console.log ('connected to mongoDB');
     })

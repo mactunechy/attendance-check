@@ -21,7 +21,7 @@ const schema = new mongoose.Schema({
 });
 
 //Token can only be checked for validity once
-schema.methods.verify = function() {
+schema.methods.verifyToken = function() {
   const isValid = this.isValid;
   if (this.isValid) {
     this.isValid = false;

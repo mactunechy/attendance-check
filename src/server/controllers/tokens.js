@@ -8,10 +8,11 @@ const Token = require("../models/Token");
 const lib = {};
 
 lib.verifyToken = async (req, res) => {
-  if (!req.query.token)
+  console.log("token",req.params )
+  if (!req.params.token)
     return res.status(400).send({ error: "Validation token required" });
   try {
-    let token = await Token.findOne({ _id: req.query.token });
+    let token = await Token.findOne({ _id: req.params.token });
     if (!token.verifyToken())
       return res.status(403).send({ error: "Invalid token" });
     return res.status(200).send({ isValid: true });
