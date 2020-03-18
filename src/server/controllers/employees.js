@@ -20,7 +20,8 @@ const lib = {};
 //Creating a  new employee
 lib.createEmployee = async (req, res, next) => {
   const employeeDetails = req.body;
-  const valid = validator(employeeDetails);
+  const valid = await  validator(employeeDetails);
+  // console.log(valid)
   if (valid.error)
     return res.status(400).send({ error: "Missing required fields" });
   Employee.create(employeeDetails)
@@ -61,22 +62,25 @@ lib.getEmployees = async (req, res, next) => {
 //Updating  employee
 lib.updateEmployee = async (req, res, next) => {
   const employeeDetails = req.body;
-  if (!employeeDetails)
+  // console.log(employeeDetails)
+  if (!employeeDetails && req.params.id)
     return res.status(400).send({ error: "Missing fields to update" });
-  const updateFields = _.omitBy(employeeDetails, _.isEmpty);
-  if (Object.keys(employeeDetails).length === 0)
-    return res.status(400).send({ error: "Missing fields to update" });
-  console.log("updateFields", updateFields);
+  // const updateFields = _.omitBy(employeeDetails, _.isEmpty);
+  // if (Object.keys(employeeDetails).length === 0)
+  //   return res.status(400).send({ error: "Missing fields to update" });
+  // console.log("updateFields", updateFields);
   //save the new employee date
   let employee = await Employee.findByIdAndUpdate(
-    employeeDetails.id,
-    updateFields,
+    req.params.id,
+    employeeDetails,
     {
       new: true
     }
   );
   if (!employee) return res.sendStatus(404);
   return res.status(200).send(employee);
+  console.log(employee)
+  
 };
 
 //Delete a employee
@@ -89,7 +93,6 @@ lib.deleteEmployee = async (req, res, next) => {
       console.log("failed to get employee")
     );
     if (!employee) return res.sendStatus(404);
-
     res.status(200).send(employee);
   } else {
     return res.status(400).json({ error: "Missing Required fields" });

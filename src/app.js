@@ -13,7 +13,8 @@ const worker = require("./worker")
 
 async function boot(){
  await app()
-    const att = await worker.jsonTOExcel()
+     const att = await worker.jsonTOExcel()
+    // const link = await worker.genetateOneTimeLink()
     // await worker.sendEmail("testing email",`<h2>Hello world test</h2>`)
 // console.log(link)
 

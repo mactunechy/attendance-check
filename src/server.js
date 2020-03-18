@@ -55,6 +55,12 @@ const appBoostrap = () => {
   //Captchering all Async errors
   app.use (errors);
 
+
+  //Front end
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  });
+
   //stating the app  @TODO move this to DB connection callback
   app.listen (config.port, () =>
     console.log (
