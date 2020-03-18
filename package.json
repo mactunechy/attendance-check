@@ -30,7 +30,6 @@
     "mongod": "^2.0.0",
     "mongoose": "^5.9.3",
     "node-mailjet": "^3.3.1",
-    "nodemailer": "^6.4.4",
     "uuid": "^3.3.2",
     "winston": "^3.2.1",
     "winston-mongodb": "^5.0.1"

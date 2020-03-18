@@ -4,7 +4,7 @@
 */
 
 //Dependencies
-const nodemailer = require("nodemailer");
+// const nodemailer = require("nodemailer");
 const CronJob = require("cron").CronJob;
 const Token = require('./server/models/Token')
 const Attendance = require("./server/models/Attendance")
