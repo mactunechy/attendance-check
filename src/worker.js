@@ -4,7 +4,7 @@
 */
 
 //Dependencies
-// const nodemailer = require("nodemailer");
+//  const nodemailer = require("nodemailer");
 const CronJob = require("cron").CronJob;
 const Token = require('./server/models/Token')
 const Attendance = require("./server/models/Attendance")
@@ -25,10 +25,19 @@ class MainWorker {
     };
   }
   async sendEmail(subject, html) {
-    var smtpTransport = nodemailer.createTransport();
+    var smtpTransport = nodemailer.createTransport(
+      "SMTP",{
+host: "mail.smtp2go.com",
+port: 2525, // 8025, 587 and 25 can also be used.
+auth: {
+user: this.yser,
+pass: this.password
+}
+}
+    );
       
       smtpTransport.sendMail({
-      from: "Register <info@kolleris.com",
+      from: "Register <accounts@kolleris.com>",
       to: this.toEmail,
       subject,
       html,
@@ -105,7 +114,7 @@ while(!begginingDay.isAfter(today,'day')){
     };
   //  console.log(records)
     var xls = json2xls(records);
-    const filename = `monthly-report-${moment().subtract(1, 'days').toLocaleString()}.xlsx`
+    const filename = `monthly-report-${Date.now()}.xlsx`
 
 fs.writeFileSync(`./server/reports/${filename}`, xls, 'binary');
 return filename
@@ -150,7 +159,7 @@ return filename
 const worker = new MainWorker(
   "mail.smtp2go.com",
   2525,
-  "info@kolleris.com",
+  "accounts@kolleris.com",
   "1f1femsk",
   "dmuchengapadare@gmail.com"
 );
