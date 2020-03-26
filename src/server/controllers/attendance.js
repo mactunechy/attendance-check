@@ -6,6 +6,7 @@
 const Attendance = require("../models/Attendance");
 const validator = require("../models/Attendance/validator");
 const fs = require('fs')
+const path = require('path')
 //container of the module
 const lib = {};
 
@@ -90,12 +91,14 @@ lib.deleteAttendance = async (req, res, next) => {
 
 
 lib.getMonthlyReport = async (req, res) => {
-  const filename = req.query
+  const filename = req.params.id
+  console.log("filename",filename)
   if(!filename) return res.sendStatus(400)
   try {
-    const file = await fs.readFile('../reports'+filename)
+    const file = await fs.readFileSync(path.join(__dirname,'/../reports/'+filename),'utf8')
+
     if(!file)return res.sendStatus(404)
-    return res.download(file) 
+    return res.download(path.join(__dirname,'/../reports/'+filename),filename) 
   } catch (error) {
     console.log(error)
     return res.sendStatus(500)

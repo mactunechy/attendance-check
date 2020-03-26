@@ -25,7 +25,7 @@ environments.development = {
 		uri:"mongodb://breeze:1f1femsk@cloudzeus.eu:27018/rentals"
 	},
 	company : {
-		infoEmail : 'info@appName.com',
+		infoEmail : 'info@kolleris.com',
 	},
 	allowedOrigins : ["http://localhost:3000"],
 	thirdPartyEndpoints : {
@@ -63,7 +63,7 @@ environments.production = {
 	port:7000,
 	origin:'https://presence.kolleris.com',
 	globals : {
-		appName : 'AppName',
+		appName : 'Kolleris',
 		origin : ''
 	},
 	hashingSecret:'prodSecret',

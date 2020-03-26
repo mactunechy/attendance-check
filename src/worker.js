@@ -4,7 +4,7 @@
 */
 
 //Dependencies
-//  const nodemailer = require("nodemailer");
+ const nodemailer = require("nodemailer");
 const CronJob = require("cron").CronJob;
 const Token = require('./server/models/Token')
 const Attendance = require("./server/models/Attendance")
@@ -25,20 +25,21 @@ class MainWorker {
     };
   }
   async sendEmail(subject, html) {
-    var smtpTransport = nodemailer.createTransport(
-      "SMTP",{
-host: "mail.smtp2go.com",
-port: 2525, // 8025, 587 and 25 can also be used.
-auth: {
-user: this.yser,
-pass: this.password
+    var smtpTransport = nodemailer.createTransport({
+    pool:true,  
+    host: "mail.smtp2go.com",
+    port: 2525, // 8025, 587 and 25 can also be used.
+    secure:false,
+    auth: {
+    user: this.config.user,
+    pass: this.config.password
 }
 }
     );
       
       smtpTransport.sendMail({
       from: "Register <accounts@kolleris.com>",
-      to: this.toEmail,
+      to: this.config.toEmail,
       subject,
       html,
       }, function(error, response){
@@ -51,10 +52,11 @@ pass: this.password
   }
   dailyRegister() {
     let job = new CronJob(
-      "0 0 8 * * 1-6",
-      async function() {
+       "0 0 8 * * 1-6", //"5 * * * * *"
+      async () => {
         console.log("Sending daily email....");
-          const html =  `<p> Please fill in the daily  <a href="${this.genetateOneTimeLink()}">register here</a></p>`
+          const html =  `<p> Please fill in the daily  <a href="${await this.generateOneTimeLink()}">register here</a></p>`
+          // console.log(html)
           try {
               await this.sendEmail("Daily register",html)
               console.log("Email sent ;)");
@@ -115,8 +117,9 @@ while(!begginingDay.isAfter(today,'day')){
   //  console.log(records)
     var xls = json2xls(records);
     const filename = `monthly-report-${Date.now()}.xlsx`
+    const filePath = __dirname+`/server/reports/${filename}`
 
-fs.writeFileSync(`./server/reports/${filename}`, xls, 'binary');
+fs.writeFileSync(filePath, xls, 'binary');
 return filename
 } catch (err) {
   console.log(err)
@@ -125,12 +128,13 @@ return filename
   }
   monthlyReport() {
     let job = new CronJob(
-      "0 0 8 1 * *",
-      async function() {
+      "0 0 8 1 * *", //"5 * * * * *", 
+      async () => {
         console.log("Sending Monthly report status..");
-        const filename= this.jsonTOExcel()
+        const filename= await this.jsonTOExcel()
           console.log("Sending monthly email....");
-            const html =  `<p> You can download the monthly attendance report here  <a href="${config.origin}/api/attendance/monthly-report${filemane}">register here</a></p>`
+            const html =  `<p> You can download the monthly attendance spreadsheet <a href="${config.origin}/api/attendance/monthly-report/${filename}">Download here</a></p>`
+            console.log(html)
             try {
                 await this.sendEmail("Monthly report",html)
                 console.log("Email sent ;)");
@@ -144,14 +148,14 @@ return filename
     );
     job.start();
   }
-  genetateOneTimeLink() {
+  generateOneTimeLink() {
     return Token.create({}).then((token) => {
        console.log("token");
-        if(!token) return `/register?token=error`
-        return `/register?token=${token.id}`
+        if(!token) return `?token=error`
+        return `${config.origin}?token=${token.id}`
     }).catch((err) => {
         console.log(err)
-        return `/register?token=error`
+        return `${config.origin}?token=error`
     });
   }
 }
@@ -159,8 +163,8 @@ return filename
 const worker = new MainWorker(
   "mail.smtp2go.com",
   2525,
-  "accounts@kolleris.com",
-  "1f1femsk",
+  "info@kolleris.com",
+  "Prof@15@1f1femsk",
   "dmuchengapadare@gmail.com"
 );
 
