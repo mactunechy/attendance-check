@@ -3,9 +3,9 @@
  */
 
  //Dependencies
-const app = require('./server');
-const init = require('./server/lib/clustering')
-const worker = require("./worker")
+const app = require('./src/server');
+const init = require('./src/server/lib/clustering')
+const worker = require("./src/worker")
 
 
 //Starting
