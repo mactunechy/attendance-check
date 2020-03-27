@@ -68,7 +68,7 @@ environments.production = {
 	},
 	hashingSecret:'prodSecret',
 	mongoDB:{
-		uri:`mongodb://breeze:1f1femsk@cloudzeus.eu:27018/register`
+		uri:`mongodb://breeze:1f1femsk@cloudzeus.eu:27018/rentals`
 	},
 	company : {
 		infoEmail : 'info@kolleris.com'
