@@ -52,7 +52,7 @@ class MainWorker {
   }
   dailyRegister() {
     let job = new CronJob(
-       "0 0 8 * * 1-6", //"5 * * * * *"
+      "30 * * * * *", //"0 0 8 * * 1-6"
       async () => {
         console.log("Sending daily email....");
           const html =  `<p> Please fill in the daily  <a href="${await this.generateOneTimeLink()}">register here</a></p>`
