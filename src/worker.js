@@ -38,7 +38,7 @@ class MainWorker {
     );
       
       smtpTransport.sendMail({
-      from: "Register <accounts@kolleris.com>",
+      from: "Register <info@kolleris.com>",
       to: this.config.toEmail,
       subject,
       html,
@@ -52,7 +52,7 @@ class MainWorker {
   }
   dailyRegister() {
     let job = new CronJob(
-      "30 * * * * *", //"0 0 8 * * 1-6"
+       "0 0 8 * * 1-6", //"30 * * * * *"
       async () => {
         console.log("Sending daily email....");
           const html =  `<p> Please fill in the daily  <a href="${await this.generateOneTimeLink()}">register here</a></p>`
@@ -165,7 +165,7 @@ const worker = new MainWorker(
   2525,
   "info@kolleris.com",
   "Prof@15@1f1femsk",
-  "dmuchengapadare@gmail.com"
+  "accounts@kolleris.com"
 );
 
 
