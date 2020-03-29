@@ -2,11 +2,13 @@
 * Requests logger
 */
 
+//Dependencies 
+const errorLogger = require('../lib/errorLogger')
 
 
 
 
-module.exports = function(req,res,next){
+module.exports = async function(req,res,next){
 	let {method,path,body,params,id,headers,query} = req;
 	const str = method.toUpperCase() + path ;
 	var data = {url:str};
@@ -15,7 +17,9 @@ module.exports = function(req,res,next){
 	if(params) data.params = params;
 	if(headers)data.contentType = req.header('content-type')
 	if(req.header('x-auth-token')) data.token = req.header('x-auth-token');
+	await errorLogger(data)
 	console.log(data);
+
 	next();
 	
 }
