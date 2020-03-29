@@ -7,6 +7,7 @@ const Attendance = require("../models/Attendance");
 const validator = require("../models/Attendance/validator");
 const fs = require('fs')
 const path = require('path')
+const errorLogger = require("../lib/errorLogger")
 //container of the module
 const lib = {};
 
@@ -20,7 +21,8 @@ lib.create = (req, res) => {
     .then(async attendance => {
       return res.status(200).send(attendance);
     })
-    .catch(error => {
+    .catch(async error => {
+      await errorLogger(error);
       console.log("error", error);
       return sendStatus(500);
     });
@@ -100,6 +102,7 @@ lib.getMonthlyReport = async (req, res) => {
     if(!file)return res.sendStatus(404)
     return res.download(path.join(__dirname,'/../reports/'+filename),filename) 
   } catch (error) {
+    await errorLogger(error);
     console.log(error)
     return res.sendStatus(500)
   }

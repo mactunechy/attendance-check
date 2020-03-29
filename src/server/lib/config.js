@@ -22,7 +22,7 @@ environments.development = {
 		origin : 'http://localhost:7000/'
 	},
 	mongoDB:{
-		uri:"mongodb://root:Prof%4015%401f1femsk@cloudzeus.eu:27018/kolllerisTools?authSource=admin"
+		uri:"mongodb://root:Prof%4015%401f1femsk@clodzeus.eu:27018/kolllerisTools?authSource=admin"
 	},
 	company : {
 		infoEmail : 'info@kolleris.com',

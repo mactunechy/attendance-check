@@ -4,6 +4,7 @@
 
 //dependencies
 const Token = require("../models/Token");
+const errorLogger= require("../lib/errorLogger")
 
 const lib = {};
 
@@ -17,6 +18,7 @@ lib.verifyToken = async (req, res) => {
       return res.status(403).send({ error: "Invalid token" });
     return res.status(200).send({ isValid: true });
   } catch (ex) {
+    await errorLogger(ex);
     console.log(ex);
     return res
       .status(500)

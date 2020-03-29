@@ -11,6 +11,7 @@ const fs = require("fs");
 const config = require("../lib/config");
 const validator = require("../models/Employee/validator");
 const _ = require("lodash");
+const errorLogger= require("../lib/errorLogger")
 
 //Container for the module
 const lib = {};
@@ -25,10 +26,11 @@ lib.createEmployee = async (req, res, next) => {
   if (valid.error)
     return res.status(400).send({ error: "Missing required fields" });
   Employee.create(employeeDetails)
-    .then(async employee => {
+    .then( employee => {
       return res.status(200).send(employee);
     })
-    .catch(err => {
+    .catch(async err => {
+      await errorLogger(err);
       console.log(err);
       return res.status(500).send({ error: "failed to create employee" });
     });
