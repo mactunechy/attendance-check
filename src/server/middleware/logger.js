@@ -3,7 +3,7 @@
 */
 
 //Dependencies 
-const errorLogger = require('../lib/errorLogger')
+// const errorLogger = require('../lib/errorLogger')
 
 
 
@@ -17,7 +17,7 @@ module.exports = async function(req,res,next){
 	if(params) data.params = params;
 	if(headers)data.contentType = req.header('content-type')
 	if(req.header('x-auth-token')) data.token = req.header('x-auth-token');
-	await errorLogger(data)
+	// await errorLogger(data)
 	console.log(data);
 
 	next();
