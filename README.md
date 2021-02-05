@@ -1,6 +1,10 @@
 # attendance-check
 An application for checking attendance of employees at a greek company called kolleris
 
+## Installation
+1. Run clone the repo and `cd` into the directory run `npm install` to install dependencies
+2. Run `npm start-dev` to run the application
+
 ## user stories
 1. An admin user can login with admin credentials manuall set on app setup
 2. An admin can add employees to the DB
