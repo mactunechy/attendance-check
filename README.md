@@ -9,3 +9,4 @@ An application for checking attendance of employees at a greek company called ko
 
 ## how the app looks
 ![Adding an employee](https://raw.githubusercontent.com/mactunechy/attendance-check/master/screenshots/Screenshot%20from%202021-02-05%2015-12-48.png)
+![Employee list](https://raw.githubusercontent.com/mactunechy/attendance-check/master/screenshots/Screenshot%20from%202021-02-05%2015-38-22.png)
